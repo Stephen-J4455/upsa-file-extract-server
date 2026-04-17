@@ -20,14 +20,7 @@ Notes:
 npm install
 ```
 
-2. Configure environment:
-
-```bash
-cp .env.example .env
-# then edit .env
-```
-
-3. Start server:
+2. Start server:
 
 ```bash
 npm run dev
@@ -42,8 +35,7 @@ Server default URL: http://localhost:8088
 This project includes a Vercel serverless entry at `api/index.js`.
 
 1. Create a Vercel project from this folder.
-2. Add environment variables from `.env.example` in Vercel Project Settings.
-3. Deploy.
+2. Deploy.
 
 After deploy:
 
@@ -52,10 +44,10 @@ After deploy:
 
 `vercel.json` rewrites these root paths to the serverless function endpoints.
 
-## Environment variables
+## Runtime constants
 
-- PORT: Server port (default 8088)
-- MAX_FILE_SIZE_MB: Upload limit in MB (default 30)
+- Port: 8088 (defined in `src/index.js`)
+- Upload limit: 30 MB (defined in `src/app.js`)
 
 ## Endpoints
 

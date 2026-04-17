@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const cors = require("cors");
 const express = require("express");
 const multer = require("multer");
@@ -8,11 +6,11 @@ const { extractTextFromFile } = require("./extractors");
 
 const app = express();
 
-const maxFileSizeMb = Number(process.env.MAX_FILE_SIZE_MB || 30);
+const MAX_FILE_SIZE_MB = 30;
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: Math.max(1, maxFileSizeMb) * 1024 * 1024,
+    fileSize: Math.max(1, MAX_FILE_SIZE_MB) * 1024 * 1024,
   },
 });
 
@@ -51,7 +49,7 @@ app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {
     if (error.code === "LIMIT_FILE_SIZE") {
       return res.status(413).json({
-        error: `File too large. Increase MAX_FILE_SIZE_MB (currently ${maxFileSizeMb}).`,
+        error: `File too large. Maximum allowed size is ${MAX_FILE_SIZE_MB} MB.`,
       });
     }
     return res.status(400).json({ error: error.message });
