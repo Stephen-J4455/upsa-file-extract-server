@@ -30,12 +30,20 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get(["/favicon.ico", "/favicon.png"], (req, res) => {
+  res.status(204).end();
+});
+
 app.get(["/health", "/api/health"], (req, res) => {
   res.json({
     status: "ok",
     service: "upsa-file-extract-server",
     mode: "extract-only",
   });
+});
+
+app.get(["/extract", "/api/extract"], (req, res) => {
+  res.redirect(307, "/extract-text");
 });
 
 app.post(["/extract-text", "/api/extract-text"], (req, res, next) => {
