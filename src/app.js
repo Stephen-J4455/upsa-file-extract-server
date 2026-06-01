@@ -22,6 +22,14 @@ const rawUpload = express.raw({
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "upsa-file-extract-server",
+    mode: "extract-only",
+  });
+});
+
 app.get(["/health", "/api/health"], (req, res) => {
   res.json({
     status: "ok",
