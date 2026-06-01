@@ -80,7 +80,14 @@ app.use((error, req, res, next) => {
   }
 
   const message = error instanceof Error ? error.message : "Unexpected server error";
-  return res.status(500).json({ error: message });
+  const isExpectedClientError =
+    message.startsWith("No valid uploaded file was provided.") ||
+    message.startsWith("No file uploaded.") ||
+    message.startsWith("Unsupported file type:") ||
+    message.startsWith("Legacy .doc and .ppt are not supported") ||
+    message.startsWith("No readable text found inside this PPTX file.");
+
+  return res.status(isExpectedClientError ? 422 : 500).json({ error: message });
 });
 
 module.exports = app;
